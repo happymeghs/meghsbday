@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Letters for Meghana 💙</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background:
+    radial-gradient(circle at top right, #bfdbfe, transparent 45%),
+    radial-gradient(circle at bottom left, #93c5fd, transparent 45%),
+    linear-gradient(135deg, #eaf2ff, #dbeafe);
+  color: #1e293b;
+  padding: 70px 24px 90px;
+}
+
+/* ---------- HEADER ---------- */
+
+header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+h1 {
+  font-size: 2.6rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  opacity: 0.7;
+  font-size: 1rem;
+}
+
+/* ---------- CONTAINER ---------- */
+
+.accordion {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* hide inputs */
+input {
+  display: none;
+}
+
+/* ---------- CARD ---------- */
+
+.card {
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.75),
+    rgba(255,255,255,0.55)
+  );
+  backdrop-filter: blur(16px);
+  border-radius: 22px;
+  box-shadow:
+    0 20px 45px rgba(30,64,175,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+  overflow: hidden;
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 28px 65px rgba(30,64,175,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.7);
+}
+
+/* ---------- CARD HEADER ---------- */
+
+.card-header {
+  padding: 26px 32px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name {
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.plus {
+  font-size: 1.6rem;
+  opacity: 0.6;
+  transition: transform 0.4s ease;
+}
+
+/* ---------- CARD CONTENT ---------- */
+
+.card-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s ease, padding 0.6s ease;
+  padding: 0 32px;
+}
+
+.card-content p {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.45rem;
+  line-height: 1.7;
+  color: #334155;
+  padding-bottom: 34px;
+}
+
+* {
+  cursor: url("./cursor.png") 16 16, pointer !important;
+}
+
+/* ---------- OPEN STATES ---------- */
+
+#c1:checked + label .card-content,
+#c2:checked + label .card-content,
+#c3:checked + label .card-content,
+#c4:checked + label .card-content,
+#c5:checked + label .card-content {
+  max-height: 420px;          /* visible height */
+  padding-top: 10px;
+  overflow-y: auto;           /* SCROLL instead of hiding */
+}
+
+
+#c1:checked + label .plus,
+#c2:checked + label .plus,
+#c3:checked + label .plus,
+#c4:checked + label .plus,
+#c5:checked + label .plus {
+  transform: rotate(45deg);
+}
+
+.card-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.card-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.card-content::-webkit-scrollbar-thumb {
+  background: rgba(59,130,246,0.4);
+  border-radius: 999px;
+}
+
+
+/* ---------- BUTTON ---------- */
+
+.btn {
+  display: block;
+  margin: 80px auto 0;
+  width: fit-content;
+  padding: 14px 36px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  color: white;
+  text-decoration: none;
+  font-size: 0.95rem;
+  box-shadow: 0 18px 45px rgba(37,99,235,0.45);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 28px 65px rgba(37,99,235,0.6);
+}
+
+#secret-trigger {
+  position: fixed;
+  bottom: 22px;
+  right: 26px;
+  font-size: 1.6rem;               /* slightly bigger */
+  color: rgba(37,99,235,0.55);     /* visible but soft */
+  cursor: pointer;
+  user-select: none;
+  z-index: 50;                     /* 🔑 THIS WAS THE MISSING PIECE */
+  animation: breathe 3.8s ease-in-out infinite;
+  transition: transform 0.35s ease, color 0.35s ease;
+}
+
+#secret-trigger:hover {
+  transform: scale(1.25);
+  color: rgba(37,99,235,0.9);
+}
+
+
+/* ---------- SECRET MODAL ---------- */
+
+#secret-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+#secret-modal.active {
+  display: flex;
+}
+
+.secret-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15,23,42,0.45);
+  backdrop-filter: blur(14px);
+}
+
+#secret-modal img {
+  position: relative;
+  max-width: 85vw;
+  max-height: 80vh;
+  border-radius: 26px;
+  box-shadow:
+    0 40px 120px rgba(59,130,246,0.45),
+    0 0 0 1px rgba(255,255,255,0.35);
+  animation: floatIn 0.8s cubic-bezier(.16,1,.3,1);
+}
+
+/* image entrance */
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Letters for Meghana 💙</h1>
+  <div class="subtitle">Five people. Five messages. One very loved girl.</div>
+</header>
+
+<section class="accordion">
+
+  <input type="checkbox" id="c1">
+  <label for="c1" class="card">
+    <div class="card-header">
+      <div class="name">Deeya</div>
+      <div class="plus">+</div>
+    </div>
+    <div class="card-content">
+      <p>
+       Meghsssssss🥹💕 Ab tere liya jitna bolo utna kam hai but fir bhi try karti hu😌 You are soooo unique, from a girl who’s okay with girl besties (ahem🙄😂) to someone jo jaan de degi apni dosti ke liye❤️</p>
+<p>Being your friend is an honour, the comfort you bring, love you give and the laughter you spread, brings a lot of light in our lives💡😂 Tere jaisa aaj tak koi nahi dekha par I feel so lucky that when I finally found someone as precious as you, I got to call you my best friend✨</p>
+<p>Itni badi lallu hai ki kya batauuuu😩😂 but that makes you even more special! Uske bina kya boring din hote😂 Sab jab irritate hote mere jokes se, toh tu ek hi hoti jo itna hasti hai🫂🥲 Asli humour ko bas tu hi recognise karti hai😤💅🏻 A-Z I love everything about youuu, even the fact ki tu meri nahi sunti and fir hum cute si ladai karte hai😂 (ab khud bhi cuties hi haii)</p>
+<p>It feels like we were always meant to meet! We are similar in so many ways!!! Telepathy pro max hai broo🤣 You are definitely my soul sister and I can’t imagine my life without you🥺 Tujhe dekha toh yeh jaana sanam, dosti hoti hai amazing sanam😌🤷‍♀️❤️
+You add a little sparkle everywhere you go (even in places you shouldnt iykyk🤷‍♀️) but thank you so much for that❤️ I’m sure everyone needs it even if they don’t realise it~ Always always be the superwoman you are!✨ (legit superpowers hai beyyy tere meinnn)</p>
+<p>Kabhi dusro ki wajah se khud ko down mat karnaa! Tu best hai and kisi se kam nahi hai😌 Slayyyyy~💅🏻 (Ryane ko bol kare😂)</p>
+<p>And apna trio bhaii🤌🏻🤌🏻 is just amazing and you will always be very important to us!💕 It has to be the best thing that happened to us in college😌 And ab toh we finally made aur ache dost (nepo kid and page faadne wala🤣), ik time kam hai but we’ll make the most of it❤️🫂 </p>
+<p>The day when I sent that big paragraph to you, saying ab nahi ho raha merese with that group and tune ok bolne ki jagah, situation sambhalne ki koshish ki, even tho it wasnt your fault…tab I understood that yeh sabse alag hai and sabse sachi dost hai🥺 Tere jaisa dost milna makes me feel really lucky and trust me, I don’t need anyone else! I can’t imagine spending my college life with anyone else😭❤️</p>
+<p>You are, were and will always be my partner and best friend in everything! From notes, to gossip, to reels and to all my dumb jokes😂 (ek tu hi samajti hi🥹😤)
+I know sometimes I roast you alot but tera cute sa chehra dekhne mein bohot maza aata hai kya karuuu😂 So I will continue but aaj nahi kyuki its your birthday🥳🥳🥳🥳 (pretty sure lekin ki Ryane aaj bhi karega😂)
+I don’t know maine kya ache kaam kiye that I got a friend like you, but I pray ki mai woh sab karti rahu so that I never lose you💕 I remember all our future plans and woh karke hi rahege😤</p>
+<p>Tu best of the best hai, khudko doubt karna bandh karde😤❤️ Tu jo karegi, jab bhi karegi, best hi karegi😌 Bharosa rakh! Baaki gyaan Soham de dega😂😜
+<p>Happy 20s!! Tu bhale hi teens se bahar aa gayi hai but for us, you’ll still be chotu only😜😂 Love you so so so so so much!!!💕 Wish you lots of love, happiness, gpa, lpa and darshan raval songs😂❤️ Isse zyada likha toh website crash ho jaayegii, hope you like this little token of love and thanks, (for existing and coming AND staying in our lives), from us for a very special girl❤️
+      </p>
+    </div>
+  </label>
+
+  <input type="checkbox" id="c2">
+  <label for="c2" class="card">
+    <div class="card-header">
+      <div class="name">Bhavya</div>
+      <div class="plus">+</div>
+    </div>
+    <div class="card-content">
+      <p>
+        Meghana, a very very happy birthday! 🎉♥️
+May you always stay happy, healthy, and wealthy🧿 (bohot saara paisa kamana ✨).
+Thank you for being my bestest friend🥹—and I’ll say this a thousand more times. You are such a sweet and genuinely kind person.🫶🏻
+Tu jahan bhi jaati hai, sab kuch positive kar deti hai. The way you understand me so deeply is just… wow. I truly want us to maintain this bond for a lifetime now.🤞🏼
+Love you 🤍
+      </p>
+    </div>
+  </label>
+
+  <input type="checkbox" id="c3">
+  <label for="c3" class="card">
+    <div class="card-header">
+      <div class="name">Ryane</div>
+      <div class="plus">+</div>
+    </div>
+    <div class="card-content">
+      <p>
+        Hey Meghana/shampi/Delulu
+I'm very grateful to have a best friend like you😌.
+Thank you for being a friend I can rely on, I don't usually trust people but you I trust, and I thank you for that❤️</p>
+<p>Baaki stay in touch wait and watch what I'll conquer😎 baadme main bohot kaam aunga😌❤️</p>
+      </p>
+    </div>
+  </label>
+
+  <input type="checkbox" id="c4">
+  <label for="c4" class="card">
+    <div class="card-header">
+      <div class="name">Soham</div>
+      <div class="plus">+</div>
+    </div>
+    <div class="card-content">
+      <p>
+        Sooo meghana, 
+1st of all thankk youuuu. ....... Iske baad 10 min ka pause liyaa hai sochne keleyeeee soo just feel for 10min acchese 😂😂 ....
+Haaa sooo where were we... haa thank youu for trusting in me and most importantly believing in me idk what you thought of me that you made me part of your group I am not that good in anything, not even studies still u believed in me tauught me like small brother, always there helping, shouting at me in classes to write down notes likee bhaiiiiii 
+kitnaaaaa kiyaa hai tune mereleye in such a short period of time, thank youuu very much I hope just joo chaiyee vo sab milee....</p>
+
+<p>Bohot hogaya senti abhi sacch batata hu, tera Mandir banane keleye jagha dhund raha huuu jaise he milta haii batata hu apn tera Mandir banayenge ... Heheheh</p>
+
+<p></p>Happyyy brithday too youuuuu
+Thank youuu for all your support 💕</p>
+      </p>
+    </div>
+  </label>
+
+  <input type="checkbox" id="c5">
+  <label for="c5" class="card">
+    <div class="card-header">
+      <div class="name">Parwaz</div>
+      <div class="plus">+</div>
+    </div>
+    <div class="card-content">
+      <p>
+        Meghna ki life ki rhythm marks se shuru hoti hai… aur ho bhi kyun na? Jo itna mann laga ke padhti ho, usko marks important lage hi. Iss semester meghna ko 9.15 mila hai jo uske hisaab se downfall hai.
+But Meghna, shayad tumhe hume dekhna chahiye… like Soham and me hehehe
+
+Par marks se zyada cheez important hai. And uss cheez mein Meghna hamesha top karti  friendships, moments, aur realness.</p>
+
+<p>She’s one of those friends jisme koi filter nahi sirf real feeling. She’s thoughtful, open, aur unlogon mein se jo moments ko sirf jeeti nahi, balki capture bhi karti. Isliye uske reels reel kam aur real zyada lagti  Trust me, log social media pe bohot fake bante hai, but she is real. Pure. Thodi silly, aur thodi innocent.
+
+Innocent isliye kyunki college mein bohot log milte sabke saath bond ban jaye, aisa hota nahi. Yeh baat woh thoda late samjhi, isliye innocent 
+
+Phir aata hai legendary book incident, jo main shayad life mein kabhi nahi bhool sakta Haan, maine page phaad diye sirf isliye kyunki mujhe rewrite nahi karna tha. Waha trust gaya, friend gaya, aur mujhe laga maine ek achha friend kho diya
+That was the interval.</p>
+
+<p>But kuch stories interval ke baad aur solid ho jaati. Kuch log wapas aate bina background music ke, bina speeches ke, bina explanations ke. Bas wapas aate, kyunki connection khatam nahi hua tha sirf pause hua tha.
+
+Aur phir aaj  touchwood  hum phir se good friends hai Is baar way more sorted By God’s grace. Aur ab toh insta close friends list mein bhi hu  jiska matlab she trusts me enough to share her off-screen life For me, that’s not small woh ek green circle nahi, it means she trusts me again 
+
+And meghna waisi friend hai jo open, honest, thoda savage, thoda silly aur full real. Aur real log market mein limited edition hote
+
+So happy birthday limited edition Meghna reel banao, moments capture karo, marks ki tension chhodo. Off-screen ho ya on-screen, raho jaise ho real.
+
+Aur haan, touchwood  I hope yeh friendship life ke end credits tak chale.
+Thank you for being a good friend it means more than you think.
+      </p>
+    </div>
+  </label>
+
+</section>
+
+<a href="love20.html" class="btn">
+  Make a Wish!⭐
+</a>
+
+<!-- secret easter egg -->
+<div id="secret-trigger" aria-label="secret memory">♪</div>
+
+<!-- image reveal modal -->
+<div id="secret-modal">
+  <div class="secret-backdrop"></div>
+  <img src="sing.jpg" alt="A favorite memory 💙">
+</div>
+
+<script>
+  const trigger = document.getElementById("secret-trigger");
+  const modal = document.getElementById("secret-modal");
+
+  trigger.addEventListener("click", () => {
+    modal.classList.add("active");
+  });
+
+  modal.addEventListener("click", () => {
+    modal.classList.remove("active");
+  });
+</script>
+
+
+</body>
+</html>

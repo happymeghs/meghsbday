@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Cake</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+body {
+  display: flex;
+  height:100vh;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  overflow: hidden;
+}
+
+#birthday-cake {
+  position: relative;
+  top:50px;
+  left:0;
+}
+
+#birthday-cake:before {
+  content:"";
+  position: absolute;
+  background-color: #a0c4ff;
+  width: 400px;
+  height:140px;
+  border-radius:50%;
+  left:50%;
+  top:50%;
+  transform: translate(-50%,-10%);
+  box-shadow: inset -2px -5px #7eaef0;
+}
+
+.cake {
+  position: absolute;
+  background-color: #74a9ff;
+  width: 350px;
+  height:130px;
+  transform: translate(-50%,-60%);
+}
+
+.cake:before, .cake:after {
+  content:"";
+  position: absolute;
+}
+
+.cake:before, .middle, .middle:before {
+  border-radius: 50% 50% 50% 50% / 0% 0% 100% 100%;
+  width:350px;
+  height:50px;
+}
+
+.cake:before {
+  background-color: #74a9ff;
+  top:130px;
+}
+
+.cake:after {
+  background-color: #5584ff;
+  width:350px;
+  height:30px;
+  top:50px;
+}
+
+.middle {
+  position: absolute;
+  background-color: #5584ff;
+  top:80px;
+  z-index:1;
+}
+
+.middle:before {
+  content:"";
+  position: absolute;
+  background-color: #74a9ff;
+  top:-35px;
+}
+
+.top {
+  position: absolute;
+  background-color: #2a52d8;
+  width:350px;
+  height: 90px;
+  border-radius:50%;
+  z-index:2;
+  top:-45px;
+  box-shadow: inset -5px -1px #fff, inset -70px 2px rgba(255,255,255,.1);
+}
+
+.chocs {
+  position: absolute;
+  width: 55px;
+  height:50px;
+  background-color: #2a52d8;
+  top:0;
+  z-index:1;
+  border-radius: 50% 50% 50% 50% / 0% 0% 100% 100%;
+  box-shadow: 49px 20px #2a52d8, 98px 25px #2a52d8, 147px 30px #2a52d8, 196px 25px #2a52d8, 245px 20px #2a52d8, 295px 0 #2a52d8, 0px 4px #fff, 49px 24px #fff, 98px 29px #fff, 147px 34px #fff, 196px 29px #fff, 245px 24px #fff, 295px 4px #fff;
+}
+
+.candles {
+  position: absolute;
+  width:30px;
+  height: 80px;
+  background-color: #00d4ff;
+  top:-160px;
+  left:-20px;
+  box-shadow: 50px 20px #00d4ff, -50px 20px #00d4ff;
+}
+
+.flame, .flame2, .flame3 {
+  position: absolute;
+  cursor: pointer;
+  width:30px;
+  height: 30px;
+  transform: rotate(-45deg);
+  z-index:4;
+  background-color: rgba(173,216,230,0.8);
+  border-radius: 80% 15% 55% 50% / 55% 15% 80% 50%;
+  animation: flame .5s infinite;
+}
+
+.flame { top:-40px; left:0; }
+.flame2 { top:-20px; left:-50px; }
+.flame3 { top:-20px; left:50px; }
+
+.flame:before, .flame2:before, .flame3:before {
+  content:"";
+  background-color: rgba(135,206,250,0.4);
+  width:20px;
+  height:20px;
+  position:absolute;
+  top:5px;
+  left:5px;
+  border-radius: 50%;
+}
+
+@keyframes flame {
+  0%,25%,100% {transform: scaleY(1) rotate(-45deg);}
+  50%,75% {transform: scaleY(1.1) rotate(-45deg);}
+}
+
+.text {
+  position: absolute;
+  width:350px;
+  font-size: 30px;
+  color:white;
+  font-family: 'Brush Script MT', cursive;
+  top:105px;
+  left:-140px;
+  opacity:0;
+}
+
+.text2 {
+  position: absolute;
+  font-size: 25px;
+  color:white;
+  font-family: 'Brush Script MT', cursive;
+  width: 300px;
+  top:105px;
+  left:-140px;
+}
+
+/* Confetti */
+.confetti-piece {
+  position:absolute;
+  width:10px;
+  height:10px;
+  background-color: #00ffff;
+  opacity:0.9;
+  z-index:10;
+}
+
+/* === GLOW PULSE === */
+#glow {
+  position: absolute;
+  width: 420px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(100,180,255,0.35), transparent 70%);
+  border-radius: 50%;
+  z-index: 0;
+  opacity: 0;
+  animation: none;
+}
+
+@keyframes glowPulse {
+  0% { opacity: 0; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.1); }
+}
+
+/* === SMOKE === */
+.smoke {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  animation: smokeRise 1.5s forwards;
+}
+
+@keyframes smokeRise {
+  0% { opacity: 0.6; transform: translateY(0) scale(0.8); }
+  100% { opacity: 0; transform: translateY(-40px) scale(1.5); }
+}
+
+#banner {
+  position: fixed;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #4facfe, #00c6ff);
+  color: white;
+  padding: 18px 30px;
+  border-radius: 0 0 22px 22px;
+  font-family: 'Brush Script MT', cursive;
+  font-size: 26px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  z-index: 30;
+  opacity: 0;
+}
+
+</style>
+</head>
+<body>
+
+<div id="banner">
+  Happy Birthday Meghana 💙  
+  Ab tune wish maangi hai toh puri toh hogi na~
+</div>
+
+<div id="birthday-cake">
+
+  <div class="cake">
+    <div class="middle"></div>
+    <div class="chocs"></div>
+    <div class="top"></div>
+  </div>
+  
+  <div class="candles">
+    <div class="flame"></div>
+    <div class="flame2"></div>
+    <div class="flame3"></div>
+  </div>
+  <p class="text2">*click on the flame or blow into your mic!</p>
+ 
+</div>
+
+<script>
+$(document).ready(function () {
+
+  let blown = false;
+  let micActive = true;
+
+  function blowCandles() {
+    if (blown) return;   // 🔒 LOCK
+    blown = true;
+    micActive = false;
+
+    $(".flame, .flame2, .flame3").animate({ opacity: 0 }, "fast");
+    $("#banner").animate({ top: 0, opacity: 1 }, 600);
+
+    // 🎉 CONFETTI (controlled & behind)
+    const cake = $("#birthday-cake").offset();
+    const centerX = cake.left + $("#birthday-cake").width() / 2;
+    const centerY = cake.top + 40;
+
+    for (let i = 0; i < 25; i++) {
+      const c = $("<div class='confetti-piece'></div>");
+      $("#confetti-layer").append(c);
+
+      let vx = (Math.random() - 0.5) * 3;
+      let vy = Math.random() * -4;
+      let gravity = 0.15;
+      let opacity = 1;
+
+      c.css({
+        left: centerX + (Math.random() - 0.5) * 200,
+        top: centerY,
+        backgroundColor: `hsl(${Math.random() * 360},80%,60%)`
+      });
+
+      const anim = setInterval(() => {
+        vy += gravity;
+        opacity -= 0.02;
+
+        c.css({
+          left: c.position().left + vx,
+          top: c.position().top + vy,
+          opacity: opacity
+        });
+
+        if (opacity <= 0 || c.position().top > window.innerHeight) {
+          clearInterval(anim);
+          c.remove();
+        }
+      }, 16);
+    }
+  }
+
+  $(".candles").on("click", blowCandles);
+
+  // 🎤 MIC DETECTION (ONE-TIME)
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+      const audioCtx = new AudioContext();
+      const source = audioCtx.createMediaStreamSource(stream);
+      const analyser = audioCtx.createAnalyser();
+      source.connect(analyser);
+      analyser.fftSize = 256;
+      const data = new Uint8Array(analyser.frequencyBinCount);
+
+      function checkVolume() {
+        if (!micActive) return; // 🔕 STOP MIC
+
+        analyser.getByteFrequencyData(data);
+        let avg = data.reduce((a, b) => a + b) / data.length;
+
+        if (avg > 55) {
+          blowCandles();
+          audioCtx.close(); // 🔥 HARD STOP
+        } else {
+          requestAnimationFrame(checkVolume);
+        }
+      }
+      checkVolume();
+    });
+  }
+});
+</script>
